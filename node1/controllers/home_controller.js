@@ -78,5 +78,47 @@ module.exports = {
     showRedirect(req,res){
         console.log("showRedirect");
         res.redirect("/api/show");
+    },
+    updateSubdocuments(req,res){
+        /* const modi = new HomeModel({
+            "name" : "modi",
+            "city" : "gujarat",
+            "post" : []
+        });
+
+        modi.save()
+        .then((user) => {
+            console.log(user);
+        }); */
+
+       /* 
+        HomeModel.findByIdAndUpdate("5a1d3d2adebeed2c2c67c831",{"name" : "modiii"})
+        .then(()=>{
+            console.log("update success");
+        })
+        .catch(()=> {
+            console.log("update failed");
+        });
+        res.send({"data" : "see console1 update"});
+         */
+
+         
+        HomeModel.findOne({name : "modiii"})
+        .then((home)=>{
+             console.log("find success1");
+             console.log(home);
+            home.post.push({"title" : "new post"});
+            home.save().then(()=>{
+                console.log("save success");
+            })
+            .catch(()=>{
+                console.log("save failed");
+            });
+        })
+        .catch(()=> {
+            console.log("find failed");
+        });
+        res.send({"data" : "see console1 update"});
+        
     }
 };

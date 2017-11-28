@@ -9,5 +9,9 @@ module.exports = (app) => {
     app.get("/api/find", HomeController.findHome);
     app.get("/api/show", HomeController.showpage);
     app.get("/api/re", HomeController.showRedirect);
+
+    app.get("/api/sub", HomeController.updateSubdocuments);
+
+    
     
 };
