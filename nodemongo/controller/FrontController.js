@@ -155,7 +155,7 @@ module.exports = {
     uploadPost(req,res){
         console.log("in uploadPost");
         
-        const multerUpload = multerconfig.upload(req,res);
+        const multerUpload = multerconfig.upload();
         multerUpload(req,res,(err)=>{
             console.log("called multerObject.upload ");
             if(err){
