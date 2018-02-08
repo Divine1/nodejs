@@ -1,4 +1,5 @@
 const Driver = require("../models/driver");
+const multerconfig = require("../models/multer");
 
 module.exports = {
     welcome(req,res){
@@ -149,5 +150,29 @@ module.exports = {
 
 
         
+    },
+    
+    uploadPost(req,res){
+        console.log("in uploadPost");
+        
+        const multerUpload = multerconfig.upload(req,res);
+        multerUpload(req,res,(err)=>{
+            console.log("called multerObject.upload ");
+            if(err){
+                console.log("err:: ",err);
+                res.render("upload", {
+                    msg: err
+                });
+            }
+            else{
+                console.log("req.body:: ",req.body);
+               console.log("req:: ",req.file);
+                res.send("test");
+            }
+        });
+    },
+    uploadGet(req,res){
+        console.log("in uploadGet");
+        res.render("upload");
     }
 };
