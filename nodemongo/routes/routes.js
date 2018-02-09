@@ -13,5 +13,6 @@ module.exports = (app) =>{
     app.get("/getdrivercount", FrontController.getDriverCount);
     app.post("/uploadpost", FrontController.uploadPost);
     app.get("/uploadget", FrontController.uploadGet);
+    app.get("/exportcsv", FrontController.exportCsv);
     
 };

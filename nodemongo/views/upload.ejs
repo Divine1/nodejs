@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Upload landing page</title>
+</head>
+<body>
+    <h3>Upload landing page</h3>
+    <%= typeof msg !="undefined" ? msg : "" %>
+    <form action="/uploadpost" method="post" enctype="multipart/form-data">
+        <input type="file" name="myimage" />
+        <input type="text" name="sport" value="cricket" />
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

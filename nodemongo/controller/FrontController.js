@@ -1,5 +1,7 @@
 const Driver = require("../models/driver");
 const multerconfig = require("../models/multer");
+var json2csv = require('json2csv');
+var fs = require('fs');
 
 module.exports = {
     welcome(req,res){
@@ -174,5 +176,38 @@ module.exports = {
     uploadGet(req,res){
         console.log("in uploadGet");
         res.render("upload");
+    },
+    exportCsv(req,res){
+        console.log("in exportCsv");
+//       https://stackoverflow.com/questions/32307636/export-mongodb-collection-data-to-csv-file-in-node-js
+
+        //https://www.npmjs.com/package/json2csv
+
+        var fields = ['car', 'price', 'color'];
+        var myCars = [
+        {
+            "car": "Audi",
+            "price": 40000,
+            "color": "blue"
+        }, {
+            "car": "BMW",
+            "price": 35000,
+            "color": "black"
+        }, {
+            "car": "Porsche",
+            "price": 60000,
+            "color": "green"
+        }
+        ];
+        var csv = json2csv({ data: myCars, fields: fields });
+        
+        fs.writeFile('file.csv', csv, function(err) {
+        if (err) throw err;
+        console.log('file saved');
+        });
+
+
+
+        res.send({"data" : "csv exported"});
     }
 };
