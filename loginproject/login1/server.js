@@ -10,16 +10,20 @@ app.use(bodyParser.json());
 app.get("/login",(req,res)=>{
     console.log("in get /login method");
 
-    /* Login.find({"email" : "divine1"})
-        .then((data)=>{
-            res.send({"text" : data});
-        }).catch((err)=>{
-            res.send({"err" : err});
-        }) */
+    Login.find({"email" : "divine1"})
+    .then((data)=>{
+        res.send({"text" : data});
+    }).catch((err)=>{
+        res.send({"err" : err});
+    });
+
     //new Login().generateAuthToken();
     //new Login().generateAuthToken();
    // Login.findByToken();
-    var jsonData = {name: "dave"};
+   
+   /*  
+   
+   var jsonData = {name: "dave"};
     var salt = "salt123";
     var signedtoken = jwt.sign(jsonData,salt);
     console.log("signedtoken: ",signedtoken);
@@ -28,10 +32,28 @@ app.get("/login",(req,res)=>{
     console.log("decoded: ",decoded);
 
     res.send({"text" : "login path"});  
+ */
 });
 
 app.post("/login",(req,res)=>{
     console.log("in post /login method");
+
+   console.log("username ",req.body.username);
+   console.log("password ",req.body.password);
+   
+    Login.find({"email" : req.body.username})
+    .then((data)=>{
+        res.send({"text" : data});
+    }).catch((err)=>{
+        res.send({"err" : err});
+    });
+    
+});
+
+
+
+app.post("/register",(req,res)=>{
+    console.log("in post /register method");
 
     var user = new Login({
         email : "divine",

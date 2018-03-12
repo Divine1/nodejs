@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const jwt = require("jsonwebtoken");
 
 const LoginSchema = new Schema({
     email:{
@@ -29,6 +30,9 @@ LoginSchema.statics.findByToken = function(){
 
 LoginSchema.methods.generateAuthToken = function(){
     console.log("in LoginSchema generateAuthToken");
+    var use = this;
+    var access="auth";
+    var token= jwt.sign({});
 
 };
 const Login = mongoose.model("login",LoginSchema);
