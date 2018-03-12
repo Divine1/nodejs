@@ -30,9 +30,22 @@ LoginSchema.statics.findByToken = function(){
 
 LoginSchema.methods.generateAuthToken = function(){
     console.log("in LoginSchema generateAuthToken");
-    var use = this;
+    var user = this;
     var access="auth";
-    var token= jwt.sign({});
+    var data = {
+        _id : user._id.toHexString(),
+        access : access
+    };
+    console.log("user._id.toHexString(): ",user._id.toHexString());
+    var token= jwt.sign(data,"salt123");
+    console.log("token ",token);
+    user.tokens.push({access:access,token:token});
+    return user.save().then((data) =>{
+        console.log("push token success ",data);
+        return token;
+    }).catch((err) => {
+        console.log("push token failure",data );
+    }); 
 
 };
 const Login = mongoose.model("login",LoginSchema);

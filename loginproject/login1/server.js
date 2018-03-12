@@ -41,9 +41,21 @@ app.post("/login",(req,res)=>{
    console.log("username ",req.body.username);
    console.log("password ",req.body.password);
    
-    Login.find({"email" : req.body.username})
+    Login.findOne({"email" : req.body.username})
     .then((data)=>{
-        res.send({"text" : data});
+        var result = {};
+        result.username = data.email;
+        result.password = data.password;
+
+        data.generateAuthToken().then((resData) => {
+            console.log("generateAuthToken success ", resData);
+            res.header("x-auth",resData)
+            .send({"text" : "success"});
+        }).catch((err)=>{
+            console.log("generateAuthToken error ", err);
+            res.send({"err" : err});
+        });
+
     }).catch((err)=>{
         res.send({"err" : err});
     });
@@ -52,12 +64,18 @@ app.post("/login",(req,res)=>{
 
 
 
-app.post("/register",(req,res)=>{
-    console.log("in post /register method");
+app.post("/signup",(req,res)=>{
+    console.log("in post /signup method");
+
+    var username = req.body.username;
+    var password = req.body.password;
+
+    console.log("username ",username);
+    console.log("password ",password);
 
     var user = new Login({
-        email : "divine",
-        password: "divine123"
+        email : username,
+        password: password
     });
     user.save().then((data) =>{
         console.log("data ",data);
